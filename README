@@ -1,0 +1,14 @@
+- CRUD
+- CRUD
+- LIER LES 2 IDENTITES (exemplepour user et car: ajouter les cars dans le garage des users ou montrer tous les voitures d'un user)
+- protejer les routes(ex: il y a que un user qui peut se supprimer lui  meme pas les autyres)
+- porteur de token beregwt
+- le hashage
+- authentification
+
+outils:
+W3scool 
+go.dev
+regex101
+
+signé: SAMPER GOMES Narciso Souleimane
