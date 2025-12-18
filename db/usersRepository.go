@@ -34,6 +34,38 @@ func GetAllUsers() ([]models.User, error) {
 	return users, nil
 }
 
+func GetUserByUsername(username string) (*models.User, error) {
+	var user models.User
+
+	row := Conn.QueryRow("SELECT id, username, password, credit FROM esgi.users WHERE username = $1", username)
+
+	err := row.Scan(&user.Id, &user.Username, &user.Password, &user.Credit)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, nil
+		}
+		return nil, fmt.Errorf("GetUserByUsername (username=%v) : %v", username, err.Error())
+	}
+
+	return &user, nil
+}
+
+func GetUserById(id int) (*models.User, error) {
+	var user models.User
+
+	row := Conn.QueryRow("SELECT id, username, password, credit FROM esgi.users WHERE id = $1", id)
+
+	err := row.Scan(&user.Id, &user.Username, &user.Password, &user.Credit)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, nil
+		}
+		return nil, fmt.Errorf("GetUserById (id=%v) : %v", id, err.Error())
+	}
+
+	return &user, nil
+}
+
 func GetAllUsersByName(name string) ([]models.User, error) {
 	var users []models.User
 
@@ -67,6 +99,23 @@ func CreateUser(user models.User) error {
 		user.Username, user.Password, user.Credit)
 	if err != nil {
 		return fmt.Errorf("db createUser : %v", err.Error())
+	}
+	return nil
+}
+
+func DeleteUser(id int) error {
+	_, err := Conn.Exec("DELETE FROM esgi.users WHERE id = $1", id)
+	if err != nil {
+		return fmt.Errorf("db deleteUser : %v", err.Error())
+	}
+	return nil
+}
+
+func UpdateUser(id int, user models.User) error {
+	_, err := Conn.Exec("UPDATE esgi.users SET username = $1, password = $2, credit = $3 WHERE id = $4",
+		user.Username, user.Password, user.Credit, id)
+	if err != nil {
+		return fmt.Errorf("db updateUser : %v", err.Error())
 	}
 	return nil
 }

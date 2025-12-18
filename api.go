@@ -11,13 +11,17 @@ func main() {
 	db.Conn = db.NewDB()
 
 	http.HandleFunc("GET /{$}", healthCheck)
-	http.HandleFunc("GET /users/{$}", app.GetAllUsers)
-	http.HandleFunc("POST /users/{$}", app.CreateUser)
-	http.HandleFunc("DELETE /users/{userId}", app.DeleteUser)
-	// http.HandleFunc("GET /users/{user}", app.GetUserById)
 
-	fmt.Println("Listening at http://localhost:8081")
-	http.ListenAndServe(":8080", nil)
+	http.HandleFunc("POST /login/{$}", app.Login)
+
+	http.HandleFunc("GET /users/{$}", app.GetAllUsers)
+	http.HandleFunc("GET /users/{userId}", app.GetUserById)
+	http.HandleFunc("POST /users/{$}", app.CreateUser)
+	http.HandleFunc("PUT /users/{userId}", app.UpdateUser)
+	http.HandleFunc("DELETE /users/{userId}", app.DeleteUser)
+
+	fmt.Println("Listening at http://localhost:8082")
+	http.ListenAndServe(":8082", nil)
 }
 
 func healthCheck(w http.ResponseWriter, r *http.Request) {
@@ -27,5 +31,3 @@ func healthCheck(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Fprintf(w, "Ping to DB successfull from %s", r.UserAgent())
 }
-
-// patch/ put / le redex / melenger déux "structures" differentes / POSTMAN !!!
