@@ -1,8 +1,8 @@
 package db
 
 import (
-	"2025A3/models"
 	"database/sql"
+	"examen/models"
 	"fmt"
 )
 

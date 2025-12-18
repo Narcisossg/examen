@@ -1,10 +1,10 @@
 package app
 
 import (
-	"2025A3/db"
-	"2025A3/models"
-	"2025A3/utils"
 	"encoding/json"
+	"examen/db"
+	"examen/models"
+	"examen/utils"
 	"fmt"
 	"net/http"
 

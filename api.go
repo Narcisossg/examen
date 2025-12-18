@@ -1,8 +1,8 @@
 package main
 
 import (
-	"2025A3/app"
-	"2025A3/db"
+	"examen/app"
+	"examen/db"
 	"fmt"
 	"net/http"
 )
